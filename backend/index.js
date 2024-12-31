@@ -25,6 +25,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+ app.get('/' , (req,res) => {
+     res.send("API WORKING")
+})
+
 const PORT = process.env.PORT || 8000;
 
 
