@@ -9,16 +9,16 @@ dotenv.config();
 // });
 
 
-// cloudinary.config({
-//     cloud_name:'dy5tlkw8j',
-//     api_key:'618382416197395',
-//     api_secret: 'QW8_RrFflYsubAgRCtkBR9Utw4I'
-// });
-// export default cloudinary;
-
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET_KEY
+    cloud_name:'dy5tlkw8j',
+    api_key:'618382416197395',
+    api_secret: 'QW8_RrFflYsubAgRCtkBR9Utw4I'
 });
+export default cloudinary;
+
+// cloudinary.config({
+//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//     api_key: process.env.CLOUDINARY_API_KEY,
+//     api_secret: process.env.CLOUDINARY_SECRET_KEY
+// });
 export default cloudinary;
