@@ -1,28 +1,85 @@
+// import jwt from "jsonwebtoken";
+
+// const isAuthenticated = async (req, res, next) => {
+//     try {
+//         const token = req.cookies.token;
+//         if (!token) {
+//             return res.status(401).json({
+//                 message: "User not authenticated",
+//                 success: false,
+//             })
+//         }
+//         const decode = await jwt.verify(token, "nayan");
+//         if(!decode){
+//             return res.status(401).json({
+//                 message:"Invalid token",
+//                 success:false
+//             })
+//         };
+//         req.id = decode.userId;
+//         next();
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+// export default isAuthenticated;
+
+
+
 import jwt from "jsonwebtoken";
 
 const isAuthenticated = async (req, res, next) => {
     try {
+        // Get token from cookies
         const token = req.cookies.token;
+        
+        // Check if the token is missing
         if (!token) {
             return res.status(401).json({
                 message: "User not authenticated",
                 success: false,
-            })
+            });
         }
+
+        // Verify token
         const decode = await jwt.verify(token, "nayan");
-        if(!decode){
+
+        // If the token is invalid or expired, it will throw an error
+        if (!decode) {
             return res.status(401).json({
-                message:"Invalid token",
-                success:false
-            })
-        };
+                message: "Invalid token",
+                success: false,
+            });
+        }
+
+        // Attach user ID to the request object
         req.id = decode.userId;
+        console.log(`User ID ${decode.userId} is authenticated`);
+
+        // Continue with the next middleware
         next();
+
     } catch (error) {
-        console.log(error);
+        // If token is expired, handle TokenExpiredError
+        if (error.name === "TokenExpiredError") {
+            console.log("Token has expired", error);
+            return res.status(401).json({
+                message: "Token has expired",
+                success: false,
+            });
+        }
+        
+        // Log any other errors
+        console.log("Authentication error:", error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
     }
-}
+};
+
 export default isAuthenticated;
+
 
 
 
