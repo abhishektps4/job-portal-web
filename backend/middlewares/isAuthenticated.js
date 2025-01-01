@@ -39,7 +39,7 @@
 import jwt from "jsonwebtoken";
 
 // login a user
-export const login = async (req, res) => {
+ const login = async (req, res) => {
     try {
         const { email, password, role } = req.body;
         if (!email || !password || !role) {
@@ -103,3 +103,4 @@ export const login = async (req, res) => {
         return res.status(500).json({ message: "Server error", success: false });
     }
 }
+export default login
