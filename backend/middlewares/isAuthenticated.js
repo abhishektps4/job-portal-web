@@ -30,9 +30,16 @@ import jwt from "jsonwebtoken";
 
 const isAuthenticated = async (req, res, next) => {
     try {
+        // Bypass authentication if AUTH_DISABLED is set to true
+        if (process.env.AUTH_DISABLED === "true") {
+            req.id = "mockUserId"; // Mock user ID
+            console.log("Authentication bypassed: Mock user ID assigned");
+            return next();
+        }
+
         // Get token from cookies
         const token = req.cookies.token;
-        
+
         // Check if the token is missing
         if (!token) {
             return res.status(401).json({
@@ -58,7 +65,6 @@ const isAuthenticated = async (req, res, next) => {
 
         // Continue with the next middleware
         next();
-
     } catch (error) {
         // If token is expired, handle TokenExpiredError
         if (error.name === "TokenExpiredError") {
@@ -68,7 +74,7 @@ const isAuthenticated = async (req, res, next) => {
                 success: false,
             });
         }
-        
+
         // Log any other errors
         console.log("Authentication error:", error);
         return res.status(500).json({
@@ -79,6 +85,10 @@ const isAuthenticated = async (req, res, next) => {
 };
 
 export default isAuthenticated;
+
+
+
+
 
 
 
