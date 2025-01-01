@@ -169,7 +169,7 @@ export const updateProfile = async (req, res) => {
         if(phoneNumber)  user.phoneNumber = phoneNumber
         if(bio) user.profile.bio = bio
         if(skills) user.profile.skills = skillsArray
-        if(resume) user.profile.resume = resume // added by Nayan
+        if(resume) user.profile.resume = resume 
 
         // resume comes later here...
         if(cloudResponse){
@@ -185,7 +185,7 @@ export const updateProfile = async (req, res) => {
             phoneNumber: user.phoneNumber,
             role: user.role,
             profile: user.profile,
-            resume: user.profile.resume // added by Nayan
+            resume: user.profile.resume 
         }
 
         return res.status(200).json({
