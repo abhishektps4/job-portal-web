@@ -31,7 +31,7 @@ app.use(cors(corsOptions));
      res.send("API WORKING")
 })
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 
 // api's
